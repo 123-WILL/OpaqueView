@@ -288,12 +288,12 @@ public:
 
         ~iterator() = default;
 
-        reference operator*() noexcept
+        [[nodiscard]] reference operator*() noexcept
         {
             return *static_cast<pointer>(m_polymorphic_iterator->get_value_pointer());
         }
 
-        pointer operator->() noexcept
+        [[nodiscard]] pointer operator->() noexcept
         {
             return static_cast<pointer>(m_polymorphic_iterator->get_value_pointer());
         }
@@ -324,7 +324,7 @@ public:
             return tmp;
         }
 
-        friend bool operator==(const iterator& lhs, const iterator& rhs) noexcept
+        [[nodiscard]] friend bool operator==(const iterator& lhs, const iterator& rhs) noexcept
         {
             return *lhs.m_polymorphic_iterator == *rhs.m_polymorphic_iterator;
         }
@@ -333,22 +333,22 @@ public:
         detail::small_polymorphic_object<detail::base_polymorphic_view::base_iterator> m_polymorphic_iterator;
     };
 
-    iterator<false> begin()
+    [[nodiscard]] iterator<false> begin()
     {
         return iterator<false>(m_polymorphic_view->init_begin_iterator());
     }
 
-    iterator<true> begin() const
+    [[nodiscard]] iterator<true> begin() const
     {
         return iterator<true>(const_cast<opaque_view*>(this)->m_polymorphic_view->init_begin_iterator());
     }
 
-    iterator<false> end()
+    [[nodiscard]] iterator<false> end()
     {
         return iterator<false>(m_polymorphic_view->init_end_iterator());
     }
 
-    iterator<true> end() const
+    [[nodiscard]] iterator<true> end() const
     {
         return iterator<true>(const_cast<opaque_view*>(this)->m_polymorphic_view->init_end_iterator());
     }
